@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boxe Performance Brasil — 30 Dias</title>
+  <meta name="description" content="Treinos de boxe focados em desempenho, velocidade e técnica. Desafios de 30 dias, aulas com professores brasileiros, exercícios diários por dificuldade." />
+  <meta name="keywords" content="boxe, treino, performance, velocidade, condicionamento, jab, direto, footwork, Brasil" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --card:#141414;
+      --red:#c8102e;
+      --muted:#707070;
+      --glass: rgba(255,255,255,0.03);
+      --accent:#ff2b2b;
+      --max-width:1100px;
+      --radius:14px;
+      --smooth: 300ms cubic-bezier(.2,.9,.2,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:linear-gradient(180deg,var(--bg), #060606);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      padding:24px 16px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--max-width);}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--red),#6f0000);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;box-shadow:0 6px 18px rgba(200,0,0,0.12)}
+    h1{font-size:20px;margin:0;letter-spacing:0.6px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:8px;align-items:center}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;transition:transform var(--smooth),background var(--smooth);}
+    .btn:hover{transform:translateY(-3px);}
+    .btn.primary{background:linear-gradient(90deg,var(--red),var(--accent));color:#fff;border:none;box-shadow:0 8px 30px rgba(200,0,0,0.12)}
+
+    main{display:grid;grid-template-columns:1fr 380px;gap:20px}
+    @media (max-width:980px){main{grid-template-columns:1fr}} 
+
+    /* left column */
+    .panel{background:var(--card);border-radius:var(--radius);padding:18px;backdrop-filter:blur(6px);box-shadow:0 6px 24px rgba(0,0,0,0.6)}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .hero-left{flex:1}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(200,0,0,0.08);color:var(--red);font-weight:800;font-size:12px}
+    .hero h2{margin:8px 0;font-size:24px}
+    .hero p{margin:0;color:var(--muted)}
+
+    /* difficulty nav */
+    .difficulties{display:flex;gap:10px;margin-top:14px}
+    .diff{flex:1;padding:12px;border-radius:10px;text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.03);transition:transform var(--smooth),background var(--smooth)}
+    .diff strong{display:block;font-size:15px}
+    .diff small{display:block;color:var(--muted);font-size:12px}
+    .diff.active{background:linear-gradient(90deg, rgba(200,0,0,0.14), rgba(255,43,43,0.06));transform:translateY(-6px);border-color:rgba(200,0,0,0.28)}
+
+    /* trainer list */
+    .trainers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+    @media (max-width:540px){.trainers{grid-template-columns:1fr}}
+    .trainer{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .avatar{width:64px;height:64px;border-radius:10px;flex:0 0 64px;background:linear-gradient(135deg,var(--red),#8b0000);display:flex;align-items:center;justify-content:center;font-weight:900}
+    .t-info strong{display:block}
+    .t-info small{color:var(--muted)}
+    .media-row{display:flex;gap:8px;margin-top:8px}
+    .media-row button{padding:8px;border-radius:8px;border:none;background:rgba(255,255,255,0.03);cursor:pointer}
+
+    /* calendar / challenge */
+    .challenge{display:flex;flex-direction:column;gap:12px}
+    .counter{font-size:28px;font-weight:800;color:var(--red)}
+    .progress{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--accent));width:0%;transition:width 400ms ease}
+
+    /* daily program */
+    .day-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .exercise-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+    .block{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px}
+    .block h4{margin:0 0 6px 0}
+    .exercise{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* side column */
+    aside .panel{position:sticky;top:24px}
+    .mini-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+    .small{font-size:13px}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* animations */
+    .fade-in{animation:fadeIn .6s both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+    /* buttons large */
+    .big{padding:14px 18px;border-radius:12px;font-weight:800}
+
+    /* simple modal for media */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60}
+    .modal.show{display:flex}
+    .modal .box{width:min(920px,96%);background:#070707;padding:18px;border-radius:12px}
+    .hint{color:var(--muted);font-size:13px}
+
+    /* subtle mobile nav */
+    .mobile-nav{display:none}
+    @media (max-width:980px){header{flex-direction:column;align-items:flex-start} .mobile-nav{display:flex;gap:8px}}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="brand">
+        <div class="logo">BPB</div>
+        <div>
+          <h1>Boxe Performance Brasil</h1>
+          <p class="lead">Velocidade • Técnica • Resistência — Desafio de 30 dias</p>
+        </div>
+      </div>
+
+      <nav>
+        <div class="mobile-nav">
+          <button class="btn" id="open-challenge">Desafio</button>
+        </div>
+        <button class="btn" id="open-trainers">Professores</button>
+        <button class="btn primary" id="start-now">Começar</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel fade-in" id="mainPanel">
+
+        <div class="hero">
+          <div class="hero-left">
+            <span class="kicker">Treinos</span>
+            <h2 id="mainTitle">Treino — Fácil</h2>
+            <p id="mainDesc">Plano diário orientado para desenvolver técnica, velocidade e resistência. Escolha um nível e avance 1 dia cada vez que concluir o treino.</p>
+
+            <div class="difficulties" role="tablist" aria-label="Dificuldades">
+              <div class="diff active" data-diff="facil" tabindex="0"><strong>Fácil</strong><small>Iniciação | Técnica leve</small></div>
+              <div class="diff" data-diff="medio" tabindex="0"><strong>Médio</strong><small>Progresso | Mais intensidade</small></div>
+              <div class="diff" data-diff="dificil" tabindex="0"><strong>Difícil</strong><small>Performance | Alta intensidade</small></div>
+            </div>
+
+            <div class="trainers" id="trainers">
+              <!-- trainers generated by JS -->
+            </div>
+
+          </div>
+
+          <div style="width:260px">
+            <div class="mini-card block">
+              <div class="hint small">Desafio mensal</div>
+              <div class="counter" id="counter">Dia 1/30</div>
+              <div class="progress"><i id="progressBar"></i></div>
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <button class="btn big" id="completeToday">Concluir treino do dia</button>
+                <button class="btn" id="resetChallenge" title="Reiniciar desafio">Reset</button>
+              </div>
+              <div class="hint" style="margin-top:10px">O contador avança quando você conclui o treino. Progresso salvo no seu navegador.</div>
+            </div>
+
+            <div style="height:14px"></div>
+
+            <div class="panel">
+              <div class="small muted">Progresso por dificuldade</div>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <div class="block" style="flex:1;text-align:center">
+                  <div style="font-weight:800" id="progFacil">0/30</div>
+                  <div class="muted">Fácil</div>
+                </div>
+                <div class="block" style="flex:1;text-align:center">
+                  <div style="font-weight:800" id="progMedio">0/30</div>
+                  <div class="muted">Médio</div>
+                </div>
+                <div class="block" style="flex:1;text-align:center">
+                  <div style="font-weight:800" id="progDificil">0/30</div>
+                  <div class="muted">Difícil</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:18px 0">
+
+        <div class="day-title">
+          <h3 id="dayHeading">Programa do Dia</h3>
+          <div class="muted" id="dayLabel">Fase: Aquecimento • Técnico • Condicionamento • Alongamento</div>
+        </div>
+
+        <div class="exercise-list" id="exerciseList">
+          <!-- generated by JS -->
+        </div>
+
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h4>Professores em destaque</h4>
+          <div style="margin-top:10px" id="asideTrainers">
+            <!-- small list generated by JS -->
+          </div>
+          <div style="height:12px"></div>
+          <h4>Como usar</h4>
+          <p class="muted" style="font-size:13px">Escolha a dificuldade, faça o treino do dia e clique em "Concluir treino do dia". O contador avança automaticamente (salvo localmente).</p>
+        </div>
+
+        <div style="height:12px"></div>
+        <div class="panel">
+          <h4>Salvar & Hospedar</h4>
+          <p class="muted small">Para usar localmente: salve este arquivo como <code>index.html</code> e abra no navegador. Para publicar, carregue no GitHub e ative GitHub Pages ou use Netlify/Vercel.</p>
+        </div>
+      </aside>
+
+    </main>
+
+    <footer>
+      Criado para <strong>Boxe Performance Brasil</strong> — design minimalista, otimizado para SEO e performance. Código responsivo e leve.
+    </footer>
+
+  </div>
+
+  <!-- modal -->
+  <div class="modal" id="mediaModal" aria-hidden="true">
+    <div class="box">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <strong id="mediaTitle">Vídeo</strong>
+        <button class="btn" id="closeModal">Fechar</button>
+      </div>
+      <div id="mediaContent" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <script>
+    // --- Data: professores brasileiros (exemplos) ---
+    const TRAINERS = [
+      {id:'tiago',name:'Tiago Silva',style:'Treino técnico e precisão; foco em jab e footwork.',avatar:null,media:[{type:'video',title:'Combo básico e footwork','src':'https://www.youtube.com/embed/ysz5S6PUM-U'}]},
+      {id:'mariana',name:'Mariana Rocha',style:'Velocidade e condicionamento; treinos intervalados.',avatar:null,media:[{type:'video',title:'Treino de velocidade','src':'https://www.youtube.com/embed/ScMzIvxBSi4'}]},
+      {id:'carlos',name:'Carlos Mendes',style:'Defesa e esquiva; trabalho de reflexos.',avatar:null,media:[{type:'video',title:'Drills de defesa','src':'https://www.youtube.com/embed/tgbNymZ7vqY'}]},
+      {id:'ana',name:'Ana Pereira',style:'Força e potência; condicionamento complementado com pliometria.',avatar:null,media:[{type:'video',title:'Pliometria para boxe','src':'https://www.youtube.com/embed/3fumBcKC6RE'}]}
+    ];
+
+    // --- Utility: localStorage keys + helpers ---
+    const STORAGE_KEY = 'bpb.challenge.v1';
+    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    function saveState(){localStorage.setItem(STORAGE_KEY, JSON.stringify(state));}
+
+    // Initialize progress values if absent
+    state.progress = state.progress || {facil:0,medio:0,dificil:0};
+    state.lastComplete = state.lastComplete || null; // ISO date when last completed (to prevent double increment same day)
+    state.selected = state.selected || 'facil';
+
+    // --- Difficulty data + exercise templates ---
+    const DIFF = {
+      facil:{label:'Fácil',desc:'Iniciação — foco em técnica e movimento',mult:1},
+      medio:{label:'Médio',desc:'Aumente a intensidade e o volume',mult:1.4},
+      dificil:{label:'Difícil',desc:'Alto desempenho e condicionamento',mult:1.9}
+    };
+
+    function generateDayProgram(difficulty, day){
+      // day: 1..30 -> vary reps/rounds
+      const mult = DIFF[difficulty].mult;
+      const intensity = Math.round(3 + Math.min(12, day * mult));
+
+      const warmup = [
+        {title:'Pular corda',detail:`3-5 min (ritmo moderado)`},
+        {title:'Mobilidade articular',detail:'pescoço, ombros, quadril — 3 min'},
+        {title:'Aquecimento dinâmico',detail:'abras e rotações, 2 min'}
+      ];
+
+      const technical = [
+        {title:'Jab + Footwork',detail:`${Math.max(4,Math.ceil(2*mult))} rounds x 1 min — foco em saída`},
+        {title:'Direto e combinações',detail:`${Math.max(3,Math.ceil(1.6*mult))} rounds x 1 min`},
+        {title:'Esquiva e contragolpe',detail:`${Math.max(3,Math.ceil(1.2*mult))} rounds x 45s`}
+      ];
+
+      const conditioning = [
+        {title:'Sprints curtos',detail:`${Math.min(12,4 + Math.round(day/4))} x 20s (descanso 40s)`},
+        {title:'Circuito corpo livre',detail:`${Math.max(2,Math.round(3*mult))} sets: burpee, mountain climber, push-up`},
+        {title:'Abdominais',detail:`${10 + day} reps x 3`}
+      ];
+
+      const stretch = [
+        {title:'Alongamento posterior e coxa',detail:'2 sets x 30s cada perna'},
+        {title:'Rotina de relaxamento',detail:'respirações profundas — 3 min'}
+      ];
+
+      // Add variation by day (especial: every 7th day is recovery)
+      if(day % 7 === 0){
+        conditioning.unshift({title:'Dia de recuperação ativa',detail:'Caminhada leve / mobilidade 20-30 min'});
+        technical = technical.map(t=> ({...t,detail:t.detail + ' (ritmo reduzido)'}));
+      }
+
+      return {warmup,technical,conditioning,stretch};
+    }
+
+    // --- DOM cache ---
+    const trainersEl = document.getElementById('trainers');
+    const asideTrainers = document.getElementById('asideTrainers');
+    const mainTitle = document.getElementById('mainTitle');
+    const mainDesc = document.getElementById('mainDesc');
+    const exerciseList = document.getElementById('exerciseList');
+    const counterEl = document.getElementById('counter');
+    const progressBar = document.getElementById('progressBar');
+    const progFacil = document.getElementById('progFacil');
+    const progMedio = document.getElementById('progMedio');
+    const progDificil = document.getElementById('progDificil');
+    const completeBtn = document.getElementById('completeToday');
+    const resetBtn = document.getElementById('resetChallenge');
+    const diffs = document.querySelectorAll('.diff');
+
+    // --- Render trainers ---
+    function renderTrainers(){
+      trainersEl.innerHTML = '';
+      asideTrainers.innerHTML = '';
+      TRAINERS.forEach(t=>{
+        const div = document.createElement('div');div.className='trainer';
+        div.innerHTML = `
+          <div class="avatar">${t.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div>
+          <div style="flex:1">
+            <div class="t-info"><strong>${t.name}</strong><small>${t.style}</small></div>
+            <div class="media-row">
+              ${t.media.map((m,idx)=>`<button data-trainer='${t.id}' data-media='${idx}' class='playMedia'>▶ ${m.type}</button>`).join('')}
+            </div>
+          </div>
+        `;
+        trainersEl.appendChild(div);
+
+        // aside card
+        const s = document.createElement('div');s.className='mini-card';
+        s.innerHTML = `<div class="avatar" style="width:44px;height:44px;border-radius:8px">${t.name.split(' ')[0][0]}</div><div><strong style='font-size:14px'>${t.name}</strong><div class='muted' style='font-size:12px'>${t.style}</div></div>`;
+        asideTrainers.appendChild(s);
+      });
+
+      // add listeners
+      document.querySelectorAll('.playMedia').forEach(btn=>btn.addEventListener('click',openMedia));
+    }
+
+    function openMedia(e){
+      const tr = e.currentTarget.getAttribute('data-trainer');
+      const mi = Number(e.currentTarget.getAttribute('data-media'));
+      const trainer = TRAINERS.find(t=>t.id===tr);
+      const media = trainer.media[mi];
+      document.getElementById('mediaTitle').innerText = `${trainer.name} — ${media.title}`;
+      const container = document.getElementById('mediaContent');
+      container.innerHTML = '';
+      if(media.type==='video'){
+        const iframe = document.createElement('iframe');
+        iframe.width = '100%';iframe.height='480';iframe.src = media.src + '?rel=0&modestbranding=1';iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');iframe.setAttribute('allowfullscreen','');
+        container.appendChild(iframe);
+      } else if(media.type==='audio'){
+        const audio = document.createElement('audio');audio.controls=true;audio.src = media.src;container.appendChild(audio);
+      }
+      document.getElementById('mediaModal').classList.add('show');
+      document.getElementById('mediaModal').setAttribute('aria-hidden','false');
+    }
+    document.getElementById('closeModal').addEventListener('click',()=>{document.getElementById('mediaModal').classList.remove('show');document.getElementById('mediaModal').setAttribute('aria-hidden','true');document.getElementById('mediaContent').innerHTML='';});
+
+    // --- Difficulty selection ---
+    diffs.forEach(d=>d.addEventListener('click',()=>selectDiff(d.getAttribute('data-diff'))));
+    function selectDiff(key){
+      state.selected = key;saveState();
+      diffs.forEach(x=>x.classList.toggle('active', x.getAttribute('data-diff')===key));
+      mainTitle.innerText = `Treino — ${DIFF[key].label}`;
+      mainDesc.innerText = DIFF[key].desc;
+      renderDay();updateUI();
+    }
+
+    // --- Render day program based on selected and current progress ---
+    function currentDay(){
+      return Math.min(30, Math.max(1, state.progress[state.selected] || 0 || 1));
+    }
+
+    function renderDay(){
+      const dayNum = Math.max(1, state.progress[state.selected] || 1);
+      const prog = generateDayProgram(state.selected, dayNum === 0 ? 1 : dayNum);
+      document.getElementById('dayHeading').innerText = `Dia ${dayNum}/30 — ${DIFF[state.selected].label}`;
+      exerciseList.innerHTML = '';
+
+      // Warmup
+      const w = document.createElement('div');w.className='block';
+      w.innerHTML = `<h4>Aquecimento</h4>` + prog.warmup.map(i=>`<div class='exercise'><div>${i.title}</div><div class='muted'>${i.detail}</div></div>`).join('');
+      exerciseList.appendChild(w);
+
+      // Technical
+      const t = document.createElement('div');t.className='block';t.innerHTML = `<h4>Exercícios técnicos</h4>` + prog.technical.map(i=>`<div class='exercise'><div>${i.title}</div><div class='muted'>${i.detail}</div></div>`).join('');
+      exerciseList.appendChild(t);
+
+      // Conditioning
+      const c = document.createElement('div');c.className='block';c.innerHTML = `<h4>Condicionamento físico</h4>` + prog.conditioning.map(i=>`<div class='exercise'><div>${i.title}</div><div class='muted'>${i.detail}</div></div>`).join('');
+      exerciseList.appendChild(c);
+
+      // Stretch
+      const s = document.createElement('div');s.className='block';s.innerHTML = `<h4>Alongamento final</h4>` + prog.stretch.map(i=>`<div class='exercise'><div>${i.title}</div><div class='muted'>${i.detail}</div></div>`).join('');
+      exerciseList.appendChild(s);
+
+      // CTA
+      const ctl = document.createElement('div');ctl.style.marginTop='12px';ctl.innerHTML = `<button class='btn primary big' id='mobileComplete'>Concluir treino do dia</button>`;
+      exerciseList.appendChild(ctl);
+      document.getElementById('mobileComplete').addEventListener('click',()=>completeDay());
+    }
+
+    // --- Progress controls ---
+    function updateUI(){
+      const sel = state.selected;
+      counterEl.innerText = `Dia ${Math.min(30, state.progress[sel] || 0)}/${30}`;
+      const percent = Math.round(((state.progress[sel]||0)/30)*100);
+      progressBar.style.width = percent + '%';
+      progFacil.innerText = `${state.progress.facil||0}/30`;
+      progMedio.innerText = `${state.progress.medio||0}/30`;
+      progDificil.innerText = `${state.progress.dificil||0}/30`;
+    }
+
+    function todayISO(){
+      const d = new Date(); return d.toISOString().split('T')[0];
+    }
+
+    function completeDay(){
+      // prevent double-complete same day for same difficulty
+      const key = `${state.selected}_last`; // per difficulty
+      if(state[key] === todayISO()){
+        alert('Você já concluiu o treino desta dificuldade hoje. Volte amanhã ou mude de dificuldade.');
+        return;
+      }
+      state.progress[state.selected] = Math.min(30, (state.progress[state.selected]||0) + 1);
+      state[key] = todayISO();
+      saveState();
+      renderDay();updateUI();
+    }
+
+    completeBtn.addEventListener('click', completeDay);
+    resetBtn.addEventListener('click', ()=>{
+      if(confirm('Reiniciar todo o desafio para todas as dificuldades?')){
+        state.progress = {facil:0,medio:0,dificil:0};
+        state.facil_last=null;state.medio_last=null;state.dificil_last=null;saveState();updateUI();renderDay();
+      }
+    });
+
+    // --- Initialize ---
+    renderTrainers();
+    selectDiff(state.selected || 'facil');
+    updateUI();
+
+    // small helpers for keyboard accessibility
+    document.querySelectorAll('.diff').forEach(el=>el.addEventListener('keydown', e=>{if(e.key==='Enter' || e.key===' '){e.preventDefault();el.click();}}));
+
+    // quick nav buttons
+    document.getElementById('open-trainers').addEventListener('click', ()=>{window.scrollTo({top:document.querySelector('.trainers').offsetTop - 80, behavior:'smooth'})});
+    document.getElementById('open-challenge').addEventListener('click', ()=>{window.scrollTo({top:document.querySelector('.mini-card').offsetTop - 80, behavior:'smooth'})});
+    document.getElementById('start-now').addEventListener('click', ()=>{window.scrollTo({top:document.querySelector('.day-title').offsetTop - 80, behavior:'smooth'})});
+
+    // SEO friendly: set document title dynamically
+    function setTitle(){document.title = `Boxe Performance Brasil — ${DIFF[state.selected].label} — Dia ${(state.progress[state.selected]||0)}`}
+    setInterval(setTitle,1200);
+
+    // improve performance: lazy-load iframes only when modal opens (done)
+
+  </script>
+</body>
+</html>
